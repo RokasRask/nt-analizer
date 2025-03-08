@@ -9,7 +9,7 @@ import MapPage from './pages/MapPage';
 import ComparisonPage from './pages/ComparisonPage';
 import AboutPage from './pages/AboutPage';
 import ErrorBoundary from './components/common/ErrorBoundary';
-import './styles/global.css';
+import './styles/global.scss';
 
 function App() {
   return (
