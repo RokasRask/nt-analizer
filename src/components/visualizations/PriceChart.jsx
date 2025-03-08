@@ -72,9 +72,84 @@ const PriceChart = ({ chartType = 'line' }) => {
             avgPrice: Math.round(group.avgPrice / group.totalProperties),
             avgPricePerSqm: Math.round(group.avgPricePerSqm / group.totalProperties)
           }))
+          .sort((a, b) => a.month.localeCompare(b.month));
+        
+        setChartData(formattedData);
+      } else if (selectedView === 'distribution') {
+        // Kainų pasiskirstymas (histograma)
+        // Nustatome kainų intervalus
+        const minPrice = Math.min(...filteredData.map(p => p.price));
+        const maxPrice = Math.max(...filteredData.map(p => p.price));
+        const range = maxPrice - minPrice;
+        const intervalCount = 10;
+        const intervalSize = range / intervalCount;
+        
+        // Inicializuojame kainų intervalus
+        const priceIntervals = Array(intervalCount).fill().map((_, i) => {
+          const intervalStart = minPrice + i * intervalSize;
+          const intervalEnd = minPrice + (i + 1) * intervalSize;
+          return {
+            interval: `${Math.round(intervalStart / 1000)}k-${Math.round(intervalEnd / 1000)}k`,
+            count: 0,
+            minValue: intervalStart,
+            maxValue: intervalEnd
+          };
+        });
+        
+        // Skaičiuojame kiek objektų patenka į kiekvieną intervalą
+        filteredData.forEach(property => {
+          const interval = Math.min(
+            Math.floor((property.price - minPrice) / intervalSize),
+            intervalCount - 1
+          );
+          priceIntervals[interval].count += 1;
+        });
+        
+        setChartData(priceIntervals);
+      } else if (selectedView === 'comparison') {
+        // Kainų palyginimas tarp miestų
+        // Grupuojame duomenis pagal miestus
+        const groupedByCity = filteredData.reduce((acc, property) => {
+          if (!acc[property.city]) {
+            acc[property.city] = {
+              city: property.city,
+              avgPrice: 0,
+              totalProperties: 0,
+              avgPricePerSqm: 0,
+              properties: []
+            };
+          }
+          
+          acc[property.city].totalProperties += 1;
+          acc[property.city].avgPrice += property.price;
+          acc[property.city].avgPricePerSqm += property.price / property.area;
+          acc[property.city].properties.push(property);
+          
+          return acc;
+        }, {});
+        
+        // Apskaičiuojame vidurkius
+        const formattedData = Object.values(groupedByCity)
+          .map(group => ({
+            ...group,
+            avgPrice: Math.round(group.avgPrice / group.totalProperties),
+            avgPricePerSqm: Math.round(group.avgPricePerSqm / group.totalProperties)
+          }))
           .sort((a, b) => b.avgPrice - a.avgPrice); // Rikiuojame pagal vidutinę kainą mažėjimo tvarka
         
         setChartData(formattedData);
+      } else if (selectedView === 'scatter') {
+        // Kainos vs ploto scatter plot
+        const scatterData = filteredData.map(property => ({
+          area: property.area,
+          price: property.price,
+          city: property.city,
+          pricePerSqm: Math.round(property.price / property.area),
+          district: property.district,
+          title: property.title
+        }));
+        
+        setChartData(scatterData);
       }
     }
   }, [loading, properties, filters, selectedView]);
@@ -191,6 +266,65 @@ const PriceChart = ({ chartType = 'line' }) => {
             </BarChart>
           </ResponsiveContainer>
         );
+
+      case 'scatter':
+        return (
+          <ResponsiveContainer width="100%" height={400}>
+            <ScatterChart
+              margin={{ top: 20, right: 30, left: 20, bottom: 50 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis 
+                dataKey="area" 
+                name="Plotas" 
+                label={{ value: 'Plotas (m²)', position: 'insideBottomRight', offset: -5 }}
+                type="number"
+                domain={['auto', 'auto']}
+              />
+              <YAxis 
+                dataKey="price" 
+                name="Kaina" 
+                label={{ value: 'Kaina (€)', angle: -90, position: 'insideLeft' }}
+                tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
+              />
+              <ZAxis
+                dataKey="pricePerSqm"
+                range={[50, 400]}
+                name="Kaina už m²"
+              />
+              <Tooltip
+                cursor={{ strokeDasharray: '3 3' }}
+                formatter={(value, name, props) => {
+                  if (name === 'Kaina') return [`${value.toLocaleString()} €`, name];
+                  if (name === 'Plotas') return [`${value} m²`, name];
+                  if (name === 'Kaina už m²') return [`${value} €/m²`, name];
+                  return [value, name];
+                }}
+                content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <div className="custom-tooltip" style={{ backgroundColor: 'white', padding: '10px', border: '1px solid #ccc' }}>
+                        <p className="label">{payload[0].payload.title}</p>
+                        <p className="intro">{payload[0].payload.city}, {payload[0].payload.district}</p>
+                        <p className="desc">Kaina: {payload[0].payload.price.toLocaleString()} €</p>
+                        <p className="desc">Plotas: {payload[0].payload.area} m²</p>
+                        <p className="desc">Kaina už m²: {payload[0].payload.pricePerSqm} €/m²</p>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+              <Legend />
+              <Scatter 
+                name="NT objektai" 
+                data={chartData} 
+                fill="#8884d8" 
+                shape="circle"
+              />
+            </ScatterChart>
+          </ResponsiveContainer>
+        );
       
       default:
         return <div>Pasirinkite grafiko tipą</div>;
@@ -220,6 +354,12 @@ const PriceChart = ({ chartType = 'line' }) => {
           >
             Miestų palyginimas
           </button>
+          <button 
+            className={selectedView === 'scatter' ? 'active' : ''} 
+            onClick={() => setSelectedView('scatter')}
+          >
+            Kaina vs Plotas
+          </button>
         </div>
       </div>
       
@@ -235,70 +375,12 @@ const PriceChart = ({ chartType = 'line' }) => {
         {selectedView === 'comparison' && (
           <p>Šis grafikas leidžia palyginti vidutines NT kainas skirtinguose miestuose.</p>
         )}
+        {selectedView === 'scatter' && (
+          <p>Šis grafikas rodo ryšį tarp NT objekto ploto ir kainos. Burbuliuko dydis atspindi kainą už kvadratinį metrą.</p>
+        )}
       </div>
     </div>
   );
-};sort((a, b) => a.month.localeCompare(b.month));
-        
-        setChartData(formattedData);
-      } else if (selectedView === 'distribution') {
-        // Kainų pasiskirstymas (histograma)
-        // Nustatome kainų intervalus
-        const minPrice = Math.min(...filteredData.map(p => p.price));
-        const maxPrice = Math.max(...filteredData.map(p => p.price));
-        const range = maxPrice - minPrice;
-        const intervalCount = 10;
-        const intervalSize = range / intervalCount;
-        
-        // Inicializuojame kainų intervalus
-        const priceIntervals = Array(intervalCount).fill().map((_, i) => {
-          const intervalStart = minPrice + i * intervalSize;
-          const intervalEnd = minPrice + (i + 1) * intervalSize;
-          return {
-            interval: `${Math.round(intervalStart / 1000)}k-${Math.round(intervalEnd / 1000)}k`,
-            count: 0,
-            minValue: intervalStart,
-            maxValue: intervalEnd
-          };
-        });
-        
-        // Skaičiuojame kiek objektų patenka į kiekvieną intervalą
-        filteredData.forEach(property => {
-          const interval = Math.min(
-            Math.floor((property.price - minPrice) / intervalSize),
-            intervalCount - 1
-          );
-          priceIntervals[interval].count += 1;
-        });
-        
-        setChartData(priceIntervals);
-      } else if (selectedView === 'comparison') {
-        // Kainų palyginimas tarp miestų
-        // Grupuojame duomenis pagal miestus
-        const groupedByCity = filteredData.reduce((acc, property) => {
-          if (!acc[property.city]) {
-            acc[property.city] = {
-              city: property.city,
-              avgPrice: 0,
-              totalProperties: 0,
-              avgPricePerSqm: 0,
-              properties: []
-            };
-          }
-          
-          acc[property.city].totalProperties += 1;
-          acc[property.city].avgPrice += property.price;
-          acc[property.city].avgPricePerSqm += property.price / property.area;
-          acc[property.city].properties.push(property);
-          
-          return acc;
-        }, {});
-        
-        // Apskaičiuojame vidurkius
-        const formattedData = Object.values(groupedByCity)
-          .map(group => ({
-            ...group,
-            avgPrice: Math.round(group.avgPrice / group.totalProperties),
-            avgPricePerSqm: Math.round(group.avgPricePerSqm / group.totalProperties)
-          }))
-          .
+};
+
+export default PriceChart;
