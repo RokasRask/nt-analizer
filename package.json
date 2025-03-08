@@ -16,7 +16,8 @@
         "react-scripts": "5.0.1",
         "recharts": "^2.15.1",
         "sass": "^1.83.1",
-        "uuid": "^11.0.5"
+        "uuid": "^11.0.5",
+        "web-vitals": "^4.2.4"
     },
     "scripts": {
         "predeploy": "npm run build",
