@@ -1,0 +1,294 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.about-page {
+  .page-header {
+    background-image: url('/assets/images/about-header-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: $spacer * 5 0;
+    position: relative;
+    text-align: center;
+    color: white;
+    margin-bottom: $spacer * 4;
+    
+    &:before {
+      content: '';
+      @include absolute-fill;
+      background: linear-gradient(135deg, rgba($primary-dark, 0.85) 0%, rgba($secondary-dark, 0.85) 100%);
+      z-index: 0;
+    }
+    
+    .container {
+      position: relative;
+      z-index: 1;
+    }
+    
+    h1 {
+      font-size: $font-size-xxxl;
+      margin-bottom: $spacer;
+      color: white;
+      
+      @include mobile {
+        font-size: $font-size-xxl;
+      }
+    }
+    
+    .subtitle {
+      font-size: $font-size-lg;
+      max-width: 700px;
+      margin: 0 auto;
+      
+      @include mobile {
+        font-size: $font-size-md;
+      }
+    }
+  }
+  
+  .about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 $spacer * 2;
+    
+    .about-section {
+      margin-bottom: $spacer * 5;
+      animation: fadeIn 0.5s ease-out;
+      animation-fill-mode: both;
+      
+      @for $i from 1 through 6 {
+        &:nth-child(#{$i}) {
+          animation-delay: 0.1s * $i;
+        }
+      }
+      
+      h2 {
+        color: $primary-color;
+        font-size: $font-size-xxl;
+        margin-bottom: $spacer * 2;
+        position: relative;
+        padding-bottom: $spacer;
+        
+        &:after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 60px;
+          height: 3px;
+          background-color: $primary-color;
+        }
+        
+        @include mobile {
+          font-size: $font-size-xl;
+        }
+      }
+      
+      p {
+        color: $text-color;
+        font-size: $font-size-md;
+        line-height: 1.8;
+        margin-bottom: $spacer * 2;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        a {
+          color: $primary-color;
+          font-weight: $font-weight-medium;
+          transition: $transition;
+          position: relative;
+          
+          &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 1px;
+            background-color: $primary-color;
+            transition: $transition;
+            opacity: 0.5;
+          }
+          
+          &:hover {
+            color: $primary-dark;
+            
+            &:after {
+              opacity: 1;
+            }
+          }
+        }
+      }
+      
+      ul.technologies-list {
+        margin-top: $spacer * 2;
+        list-style: none;
+        padding-left: 0;
+        
+        li {
+          position: relative;
+          padding-left: $spacer * 3;
+          margin-bottom: $spacer * 1.5;
+          
+          &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, $primary-color, $secondary-color);
+          }
+          
+          strong {
+            color: $text-dark;
+            font-weight: $font-weight-bold;
+            margin-right: $spacer / 2;
+          }
+        }
+      }
+      
+      &.disclaimer {
+        background-color: rgba($accent-color, 0.1);
+        padding: $spacer * 3;
+        border-radius: $border-radius;
+        border-left: 4px solid $accent-color;
+        
+        h2 {
+          color: $accent-color;
+          
+          &:after {
+            background-color: $accent-color;
+          }
+        }
+        
+        p {
+          color: $text-color;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    
+    // Команда секция
+    .team-section {
+      .team-members {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: $spacer * 3;
+        margin-top: $spacer * 3;
+        
+        .team-member {
+          text-align: center;
+          
+          .member-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto $spacer * 2;
+            border: 5px solid $bg-light;
+            box-shadow: $shadow;
+            
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+          
+          .member-name {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-bold;
+            color: $text-dark;
+            margin-bottom: $spacer / 2;
+          }
+          
+          .member-title {
+            color: $primary-color;
+            font-size: $font-size-sm;
+            margin-bottom: $spacer;
+          }
+          
+          .member-bio {
+            font-size: $font-size-sm;
+            color: $text-light;
+          }
+        }
+      }
+    }
+    
+    // Timeline секция
+    .timeline-section {
+      .timeline {
+        position: relative;
+        margin-top: $spacer * 4;
+        padding-left: $spacer * 3;
+        
+        &:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 2px;
+          background-color: $border-color;
+        }
+        
+        .timeline-item {
+          position: relative;
+          padding-bottom: $spacer * 4;
+          
+          &:last-child {
+            padding-bottom: 0;
+          }
+          
+          &:before {
+            content: '';
+            position: absolute;
+            left: -$spacer * 3 - 7px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: $primary-color;
+            border: 3px solid white;
+            box-shadow: 0 0 0 1px $primary-color;
+          }
+          
+          .timeline-date {
+            font-weight: $font-weight-bold;
+            color: $primary-color;
+            margin-bottom: $spacer;
+          }
+          
+          .timeline-title {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-bold;
+            color: $text-dark;
+            margin-bottom: $spacer;
+          }
+          
+          .timeline-content {
+            color: $text-light;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 
+PLACEHOLDER PAVEIKSLĖLIS: about-header-bg.jpg
+
+Aprašymas: Fono paveikslėlis "Apie" puslapio antraštei.
+Reikalavimai:
+- Vaizduojantis biuro ar komandos darbo aplinką, susijusią su technologijomis ar duomenų analize
+- Rezoliucija: mažiausiai 1920x400px
+- Spalvos turėtų derėti su svetainės spalvine palete
+- Turėtų gerai atrodyti su tamsintu gradiento sluoksniu viršuje
+*/

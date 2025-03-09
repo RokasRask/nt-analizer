@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { FilterProvider } from './context/FilterContext';
 import { DataProvider } from './context/DataContext';
@@ -9,7 +10,6 @@ import MapPage from './pages/MapPage';
 import ComparisonPage from './pages/ComparisonPage';
 import AboutPage from './pages/AboutPage';
 import ErrorBoundary from './components/common/ErrorBoundary';
-import './styles/global.scss';
 
 function App() {
   return (
