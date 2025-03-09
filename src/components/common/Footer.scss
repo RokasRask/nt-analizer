@@ -1,0 +1,312 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.footer {
+  background-color: $neutral-800;
+  color: $neutral-300;
+  padding: $spacer * 6 0 $spacer * 3;
+  position: relative;
+  overflow: hidden;
+  
+  // Footer skyline
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-image: url('/assets/images/footer-skyline.png');
+    background-repeat: repeat-x;
+    background-position: bottom center;
+    background-size: auto 80px;
+    opacity: 0.15;
+    z-index: 1;
+  }
+  
+  .footer-container {
+    position: relative;
+    z-index: 2;
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 0 $spacer * 2;
+    
+    @include mobile {
+      padding: 0 $spacer * 1.5;
+    }
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacer * 4;
+    margin-bottom: $spacer * 5;
+    
+    @include mobile {
+      flex-direction: column;
+      gap: $spacer * 3;
+    }
+  }
+  
+  .footer-column {
+    flex: 1;
+    min-width: 200px;
+    
+    @include mobile {
+      text-align: center;
+    }
+    
+    &.footer-about {
+      flex: 2;
+      min-width: 300px;
+    }
+  }
+  
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacer * 2;
+    
+    @include mobile {
+      justify-content: center;
+    }
+    
+    img {
+      height: 40px;
+      margin-right: $spacer;
+    }
+    
+    .logo-text {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: white;
+      
+      span {
+        color: $primary-light;
+      }
+    }
+  }
+  
+  .footer-about-text {
+    margin-bottom: $spacer * 2;
+    line-height: 1.7;
+    max-width: 400px;
+    
+    @include mobile {
+      max-width: 100%;
+    }
+  }
+  
+  .footer-social {
+    display: flex;
+    gap: $spacer * 1.5;
+    
+    @include mobile {
+      justify-content: center;
+    }
+    
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: rgba(white, 0.1);
+      color: white;
+      transition: $transition;
+      
+      &:hover {
+        background-color: $primary-color;
+        transform: translateY(-3px);
+      }
+    }
+  }
+  
+  .footer-title {
+    color: white;
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacer * 2;
+    position: relative;
+    padding-bottom: $spacer;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background-color: $primary-color;
+      
+      @include mobile {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+  
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    li {
+      margin-bottom: $spacer;
+    }
+    
+    a {
+      color: $neutral-300;
+      text-decoration: none;
+      transition: $transition;
+      position: relative;
+      padding-left: $spacer * 1.5;
+      display: inline-block;
+      
+      &:before {
+        content: '›';
+        position: absolute;
+        left: 0;
+        color: $primary-color;
+        font-size: $font-size-lg;
+        line-height: 1;
+        transition: $transition;
+      }
+      
+      &:hover {
+        color: white;
+        padding-left: $spacer * 2;
+        
+        &:before {
+          left: $spacer * 0.5;
+        }
+      }
+      
+      @include mobile {
+        padding-left: 0;
+        
+        &:before {
+          display: none;
+        }
+        
+        &:hover {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+  
+  .footer-contact {
+    li {
+      margin-bottom: $spacer * 1.5;
+      display: flex;
+      align-items: flex-start;
+      
+      @include mobile {
+        justify-content: center;
+      }
+      
+      i {
+        color: $primary-color;
+        margin-right: $spacer;
+        margin-top: 4px;
+      }
+    }
+  }
+  
+  .footer-subscribe {
+    margin-top: $spacer * 2;
+    
+    p {
+      margin-bottom: $spacer;
+    }
+    
+    .subscribe-form {
+      display: flex;
+      gap: $spacer;
+      
+      @include mobile {
+        flex-direction: column;
+      }
+      
+      input {
+        flex: 1;
+        padding: 10px 12px;
+        border-radius: $border-radius;
+        border: none;
+        background-color: rgba(white, 0.1);
+        color: white;
+        
+        &::placeholder {
+          color: $neutral-500;
+        }
+        
+        &:focus {
+          outline: none;
+          background-color: rgba(white, 0.15);
+        }
+      }
+      
+      button {
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: $border-radius;
+        cursor: pointer;
+        transition: $transition;
+        white-space: nowrap;
+        
+        &:hover {
+          background-color: $primary-dark;
+        }
+      }
+    }
+  }
+  
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: $spacer * 3;
+    border-top: 1px solid rgba(white, 0.1);
+    
+    @include mobile {
+      flex-direction: column;
+      gap: $spacer * 2;
+      text-align: center;
+    }
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: $spacer * 2;
+    
+    a {
+      color: $neutral-400;
+      text-decoration: none;
+      transition: $transition;
+      
+      &:hover {
+        color: white;
+      }
+    }
+  }
+  
+  .copyright {
+    color: $neutral-500;
+    font-size: $font-size-sm;
+  }
+}
+
+/* 
+PLACEHOLDER PAVEIKSLĖLIS: footer-skyline.png
+
+Aprašymas: Miesto siluetas, naudojamas poraštės fone.
+Reikalavimai:
+- Miesto pastatų siluetas (skyline), juodos spalvos
+- Skaidrus fonas (PNG formatas)
+- Rezoliucija: apie 1920x150px
+- Turi gerai atrodyti kartojamas horizontaliai (repeat-x)
+*/
