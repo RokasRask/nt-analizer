@@ -1,0 +1,245 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.sidebar-filter {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  transition: all 0.3s ease;
+  
+  .toggle-filter-button {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1010;
+    
+    i {
+      margin-right: 8px;
+      font-size: 16px;
+    }
+    
+    &:hover {
+      background-color: darken(#1a73e8, 10%);
+    }
+  }
+  
+  .filter-content {
+    position: fixed;
+    left: -320px;
+    top: 0;
+    width: 320px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    z-index: 1005;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  &.expanded {
+    .filter-content {
+      left: 0;
+    }
+  }
+  
+  .filter-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e9ecef;
+    
+    h3 {
+      font-size: 18px;
+      margin: 0;
+      color: #1a73e8;
+    }
+    
+    .reset-button {
+      background: none;
+      border: none;
+      color: #6c757d;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 5px 0;
+      
+      &:hover {
+        color: #1a73e8;
+      }
+      
+      i {
+        margin-right: 5px;
+      }
+    }
+  }
+  
+  .filter-body {
+    .filter-group {
+      margin-bottom: 20px;
+      
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        color: #495057;
+      }
+      
+      .filter-select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #495057;
+        background-color: #fff;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        
+        &:focus {
+          border-color: #1a73e8;
+          outline: 0;
+          box-shadow: 0 0 0 0.2rem rgba(26, 115, 232, 0.25);
+        }
+      }
+    }
+    
+    .filter-actions {
+      margin-top: 30px;
+      
+      .apply-button {
+        width: 100%;
+        padding: 12px;
+        background-color: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        
+        &:hover {
+          background-color: darken(#1a73e8, 10%);
+        }
+        
+        i {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+  
+  // For mobile devices
+  @include mobile {
+    .filter-content {
+      width: 280px;
+      left: -280px;
+    }
+  }
+  
+  // Slider components styles
+  .slider-container {
+    position: relative;
+    height: 40px;
+    margin: 10px 0;
+  }
+  
+  .slider {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #dee2e6;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 1px;
+    
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #1a73e8;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    &::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #1a73e8;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+  }
+  
+  .min-slider {
+    z-index: 2;
+  }
+  
+  .max-slider {
+    z-index: 1;
+  }
+  
+  .price-inputs, .area-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    
+    .price-input-group, .area-input-group {
+      width: 48%;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: normal;
+      font-size: 12px;
+      color: #6c757d;
+    }
+    
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 14px;
+      
+      &:focus {
+        border-color: #1a73e8;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(26, 115, 232, 0.25);
+      }
+    }
+  }
+  
+  .price-range-display, .area-range-display {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #6c757d;
+    margin-top: 8px;
+  }
+}

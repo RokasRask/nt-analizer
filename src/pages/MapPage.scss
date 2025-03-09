@@ -3,19 +3,19 @@
 
 .map-page {
   .page-header {
-    background-image: url('/assets/images/map-header-bg.jpg');
+    background-image: linear-gradient(135deg, #1a73e8, #6c5ce7);
     background-size: cover;
     background-position: center;
-    padding: $spacer * 5 0;
+    padding: $spacer * 3 0;
     position: relative;
     text-align: center;
     color: white;
-    margin-bottom: $spacer * 4;
+    margin-bottom: $spacer * 3;
     
     &:before {
       content: '';
       @include absolute-fill;
-      background: linear-gradient(to right, rgba($primary-dark, 0.85), rgba($secondary-dark, 0.85));
+      background: rgba(0, 0, 0, 0.3);
       z-index: 0;
     }
     
@@ -25,68 +25,67 @@
     }
     
     h1 {
-      font-size: $font-size-xxxl;
+      font-size: 28px;
       margin-bottom: $spacer;
       color: white;
       
       @include mobile {
-        font-size: $font-size-xxl;
+        font-size: 24px;
       }
     }
     
     .subtitle {
-      font-size: $font-size-lg;
+      font-size: 16px;
       max-width: 700px;
       margin: 0 auto;
       
       @include mobile {
-        font-size: $font-size-md;
+        font-size: 14px;
       }
     }
   }
   
   .map-container {
     display: flex;
-    gap: $spacer * 3;
     max-width: $container-max-width;
-    margin: 0 auto;
+    margin: 0 auto $spacer * 4;
     padding: 0 $spacer * 2;
-    margin-bottom: $spacer * 5;
+    position: relative;
     
     @include mobile {
+      padding: 0 $spacer;
       flex-direction: column;
     }
     
     .sidebar {
-      width: 320px;
+      width: 300px;
       flex-shrink: 0;
+      margin-right: $spacer * 3;
       
       @include mobile {
         width: 100%;
-        order: 2; // Sidebaro pozicionavimas po žemėlapio mobilioje versijoje
+        margin-right: 0;
+        margin-bottom: $spacer * 2;
       }
     }
     
     .map-content {
       flex: 1;
-      
-      @include mobile {
-        order: 1; // Žemėlapio pozicionavimas prieš sidebar mobiloje versijoje
-      }
     }
   }
   
   .filters-container {
     background-color: white;
     border-radius: $border-radius;
-    box-shadow: $shadow-card;
-    margin-bottom: $spacer * 3;
-    padding: $spacer * 2.5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: $spacer * 2;
+    padding: $spacer * 2;
+    display: none; // Скрыто, так как теперь используем SidebarFilter
     
     h3 {
-      margin-bottom: $spacer * 2;
-      font-size: $font-size-lg;
-      color: $text-dark;
+      margin-bottom: $spacer * 1.5;
+      font-size: 16px;
+      color: #1a73e8;
       position: relative;
       padding-bottom: $spacer;
       
@@ -96,8 +95,8 @@
         left: 0;
         bottom: 0;
         width: 40px;
-        height: 3px;
-        background-color: $primary-color;
+        height: 2px;
+        background-color: #1a73e8;
       }
     }
   }
@@ -105,14 +104,14 @@
   .map-controls {
     background-color: white;
     border-radius: $border-radius;
-    box-shadow: $shadow-card;
-    margin-bottom: $spacer * 3;
-    padding: $spacer * 2.5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: $spacer * 2;
+    padding: $spacer * 2;
     
     h3 {
-      margin-bottom: $spacer * 2;
-      font-size: $font-size-lg;
-      color: $text-dark;
+      margin-bottom: $spacer * 1.5;
+      font-size: 16px;
+      color: #1a73e8;
       position: relative;
       padding-bottom: $spacer;
       
@@ -122,15 +121,15 @@
         left: 0;
         bottom: 0;
         width: 40px;
-        height: 3px;
-        background-color: $primary-color;
+        height: 2px;
+        background-color: #1a73e8;
       }
     }
     
     .view-mode-buttons {
       display: flex;
       gap: $spacer;
-      margin-bottom: $spacer * 2;
+      margin-bottom: $spacer * 1.5;
       
       @include mobile {
         flex-wrap: wrap;
@@ -139,61 +138,64 @@
       button {
         flex: 1;
         padding: $spacer;
-        background-color: $bg-light;
-        color: $text-color;
-        border: 1px solid $border-color;
+        background-color: #f8f9fa;
+        color: #495057;
+        border: 1px solid #dee2e6;
         border-radius: $border-radius;
-        transition: $transition;
-        font-size: $font-size-sm;
+        transition: all 0.2s ease;
+        font-size: 14px;
         
         &.active {
-          background-color: $primary-color;
+          background-color: #1a73e8;
           color: white;
-          border-color: $primary-color;
+          border-color: #1a73e8;
         }
         
         &:hover:not(.active) {
-          background-color: $bg-dark;
+          background-color: #e9ecef;
         }
       }
     }
     
     .map-legend {
-      background-color: $bg-light;
+      background-color: #f8f9fa;
       border-radius: $border-radius;
       padding: $spacer * 1.5;
       
       h4 {
         margin-bottom: $spacer;
-        font-size: $font-size-md;
+        font-size: 15px;
+        color: #495057;
       }
       
       .legend-items {
         display: flex;
         flex-direction: column;
-        gap: $spacer;
+        gap: $spacer / 2;
         
         .legend-item {
           display: flex;
           align-items: center;
+          font-size: 14px;
+          color: #6c757d;
           
           .color-box {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
             margin-right: $spacer;
           }
           
           .low-price {
-            background-color: $map-low-price;
+            background-color: #4286f4;
           }
           
           .medium-price {
-            background-color: $map-medium-price;
+            background-color: #8e44ad;
           }
           
           .high-price {
-            background-color: $map-high-price;
+            background-color: #e74c3c;
           }
         }
       }
@@ -203,13 +205,13 @@
   .selected-property-details {
     background-color: white;
     border-radius: $border-radius;
-    box-shadow: $shadow-card;
-    padding: $spacer * 2.5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: $spacer * 2;
     
     h3 {
-      margin-bottom: $spacer * 2;
-      font-size: $font-size-lg;
-      color: $text-dark;
+      margin-bottom: $spacer * 1.5;
+      font-size: 16px;
+      color: #1a73e8;
       position: relative;
       padding-bottom: $spacer;
       
@@ -219,43 +221,44 @@
         left: 0;
         bottom: 0;
         width: 40px;
-        height: 3px;
-        background-color: $primary-color;
+        height: 2px;
+        background-color: #1a73e8;
       }
     }
     
     .property-card {
-      border: 1px solid $border-color;
+      border: 1px solid #dee2e6;
       border-radius: $border-radius;
       overflow: hidden;
       
       h4 {
-        font-size: $font-size-lg;
+        font-size: 16px;
         margin-bottom: $spacer;
         padding: $spacer * 1.5 $spacer * 1.5 0;
-        color: $text-dark;
+        color: #212529;
       }
       
       .property-price {
-        font-size: $font-size-xl;
+        font-size: 18px;
         font-weight: $font-weight-bold;
-        color: $primary-color;
+        color: #1a73e8;
         padding: 0 $spacer * 1.5;
       }
       
       .property-price-sqm {
-        font-size: $font-size-sm;
-        color: $text-light;
+        font-size: 14px;
+        color: #6c757d;
         padding: 0 $spacer * 1.5;
         margin-bottom: $spacer;
       }
       
       .property-details {
         padding: $spacer * 1.5;
-        background-color: $bg-light;
+        background-color: #f8f9fa;
         
         p {
           margin-bottom: $spacer;
+          font-size: 14px;
           
           &:last-child {
             margin-bottom: 0;
@@ -264,6 +267,7 @@
           strong {
             font-weight: $font-weight-medium;
             margin-right: $spacer / 2;
+            color: #495057;
           }
         }
       }
@@ -271,18 +275,18 @@
       .view-listing-btn {
         display: block;
         text-align: center;
-        background-color: $primary-color;
+        background-color: #1a73e8;
         color: white;
         padding: $spacer;
         margin: $spacer * 1.5;
         border-radius: $border-radius;
         font-weight: $font-weight-medium;
-        transition: $transition;
+        transition: all 0.2s ease;
         
         &:hover {
-          background-color: $primary-dark;
+          background-color: darken(#1a73e8, 10%);
           transform: translateY(-2px);
-          box-shadow: 0 4px 8px rgba($primary-color, 0.3);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
       }
     }
@@ -291,28 +295,29 @@
   .map-header {
     background-color: white;
     border-radius: $border-radius;
-    box-shadow: $shadow-card;
-    padding: $spacer * 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: $spacer * 1.5;
     margin-bottom: $spacer * 2;
     
     .map-stats {
       display: flex;
       flex-wrap: wrap;
-      gap: $spacer * 2;
+      gap: $spacer;
       
       .map-stat {
         display: flex;
         align-items: center;
         gap: $spacer / 2;
+        margin-right: $spacer;
         
         .stat-label {
-          font-size: $font-size-sm;
-          color: $text-light;
+          font-size: 14px;
+          color: #6c757d;
         }
         
         .stat-value {
-          font-weight: $font-weight-bold;
-          color: $text-dark;
+          font-weight: $font-weight-medium;
+          color: #1a73e8;
         }
       }
     }
@@ -321,50 +326,60 @@
   .map-visualization {
     border-radius: $border-radius;
     overflow: hidden;
-    box-shadow: $shadow-card;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: $spacer * 2;
     
     .leaflet-container {
       width: 100%;
-      height: 700px;
+      height: 650px;
       
       @include mobile {
-        height: 500px;
+        height: 450px;
       }
     }
   }
   
   .map-instructions {
-    background-color: $bg-light;
-    border: 1px solid $border-color;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
     border-radius: $border-radius;
     padding: $spacer * 1.5;
     margin-bottom: $spacer * 3;
     
     p {
       margin: 0;
-      font-size: $font-size-sm;
-      color: $text-light;
+      font-size: 14px;
+      color: #6c757d;
       
       strong {
-        color: $text-dark;
+        color: #495057;
       }
     }
   }
   
-  .leaflet-popup-content {
+  // Custom Leaflet popup styles
+  :global(.leaflet-popup-content-wrapper) {
+    border-radius: $border-radius;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  :global(.leaflet-popup-content) {
+    margin: $spacer;
+    
     .property-popup {
       width: 250px;
       
       h3 {
-        font-size: $font-size-md;
+        font-size: 15px;
         margin-bottom: $spacer / 2;
-        color: $primary-color;
+        color: #1a73e8;
+        font-weight: $font-weight-medium;
       }
       
       p {
         margin-bottom: $spacer / 2;
-        font-size: $font-size-sm;
+        font-size: 13px;
+        color: #6c757d;
         
         &:last-of-type {
           margin-bottom: $spacer;
@@ -374,29 +389,18 @@
       a {
         display: block;
         text-align: center;
-        background-color: $primary-color;
+        background-color: #1a73e8;
         color: white;
         padding: $spacer / 2 $spacer;
         border-radius: $border-radius;
-        font-size: $font-size-sm;
+        font-size: 13px;
         font-weight: $font-weight-medium;
-        transition: $transition;
+        transition: all 0.2s ease;
         
         &:hover {
-          background-color: $primary-dark;
+          background-color: darken(#1a73e8, 10%);
         }
       }
     }
   }
 }
-
-/* 
-PLACEHOLDER PAVEIKSLĖLIS: map-header-bg.jpg
-
-Aprašymas: Fono paveikslėlis žemėlapio puslapio antraštei.
-Reikalavimai:
-- Vaizduojantis miesto žemėlapį arba panoraminį miesto vaizdą iš viršaus
-- Rezoliucija: mažiausiai 1920x400px
-- Gali būti stilizuotas žemėlapis arba realistinis miesto vaizdas
-- Turėtų gerai atrodyti su tamsintu gradiento sluoksniu viršuje
-*/

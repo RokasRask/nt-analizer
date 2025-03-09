@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePropertyData } from '../context/DataContext';
-import FilterPanel from '../components/filters/FilterPanel';
 import PriceChart from '../components/visualizations/PriceChart';
 import PropertyMap from '../components/visualizations/PropertyMap';
 import './HomePage.scss';
@@ -177,7 +176,7 @@ const HomePage = () => {
               <div className="features-container">
                 <div className="feature-card">
                   <div className="feature-icon">
-                    <img src="/assets/images/feature-icon-search.svg" alt="Paieška" />
+                    <img src="../assets/images/feature-icon-search.svg" alt="Paieška" />
                   </div>
                   <h3>Išplėstinė paieška</h3>
                   <p>Naudokite detalius filtrus, kad rastumėte būtent tai, ko ieškote. Filtruokite pagal kainą, vietą, dydį ir kitus parametrus.</p>
@@ -185,7 +184,7 @@ const HomePage = () => {
                 
                 <div className="feature-card">
                   <div className="feature-icon">
-                    <img src="/assets/images/feature-icon-analytics.svg" alt="Analizė" />
+                    <img src="../assets/images/feature-icon-analytics.svg" alt="Analizė" />
                   </div>
                   <h3>Rinkos analizė</h3>
                   <p>Gaukite išsamią NT rinkos analizę su kainų tendencijomis, palyginimais ir prognozėmis.</p>
@@ -193,7 +192,7 @@ const HomePage = () => {
                 
                 <div className="feature-card">
                   <div className="feature-icon">
-                    <img src="/assets/images/feature-icon-map.svg" alt="Žemėlapis" />
+                    <img src="../assets/images/feature-icon-map.svg" alt="Žemėlapis" />
                   </div>
                   <h3>Interaktyvus žemėlapis</h3>
                   <p>Tyrinėkite NT objektus interaktyviame žemėlapyje su galingais filtravimo įrankiais.</p>
@@ -201,7 +200,7 @@ const HomePage = () => {
                 
                 <div className="feature-card">
                   <div className="feature-icon">
-                    <img src="/assets/images/feature-icon-compare.svg" alt="Palyginimai" />
+                    <img src="../assets/images/feature-icon-compare.svg" alt="Palyginimai" />
                   </div>
                   <h3>Miestų palyginimas</h3>
                   <p>Palyginkite skirtingų Lietuvos miestų ir rajonų NT kainas, tendencijas ir kitus parametrus.</p>
