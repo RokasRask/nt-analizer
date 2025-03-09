@@ -1,197 +1,304 @@
-// Responsiškumo mixins
-@mixin respond-to($breakpoint) {
-    @if $breakpoint == xs {
-      @media (max-width: #{$breakpoint-sm - 1}) {
-        @content;
-      }
-    } @else if $breakpoint == sm {
-      @media (min-width: #{$breakpoint-sm}) and (max-width: #{$breakpoint-md - 1}) {
-        @content;
-      }
-    } @else if $breakpoint == md {
-      @media (min-width: #{$breakpoint-md}) and (max-width: #{$breakpoint-lg - 1}) {
-        @content;
-      }
-    } @else if $breakpoint == lg {
-      @media (min-width: #{$breakpoint-lg}) and (max-width: #{$breakpoint-xl - 1}) {
-        @content;
-      }
-    } @else if $breakpoint == xl {
-      @media (min-width: #{$breakpoint-xl}) and (max-width: #{$breakpoint-xxl - 1}) {
-        @content;
-      }
-    } @else if $breakpoint == xxl {
-      @media (min-width: #{$breakpoint-xxl}) {
-        @content;
-      }
+@import 'variables';
+
+// Breakpoint mixins
+@mixin sm {
+  @media (min-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin xxl {
+  @media (min-width: $breakpoint-2xl) {
+    @content;
+  }
+}
+
+// Flexbox helpers
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// Grid helpers
+@mixin grid($columns: 1, $gap: $spacing-md) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+// Typography
+@mixin heading-1 {
+  font-family: $font-family-heading;
+  font-size: $font-size-3xl;
+  font-weight: 700;
+  line-height: 1.2;
+  
+  @include md {
+    font-size: $font-size-4xl;
+  }
+  
+  @include lg {
+    font-size: $font-size-5xl;
+  }
+}
+
+@mixin heading-2 {
+  font-family: $font-family-heading;
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  line-height: 1.3;
+  
+  @include md {
+    font-size: $font-size-3xl;
+  }
+}
+
+@mixin heading-3 {
+  font-family: $font-family-heading;
+  font-size: $font-size-xl;
+  font-weight: 600;
+  line-height: 1.3;
+  
+  @include md {
+    font-size: $font-size-2xl;
+  }
+}
+
+@mixin heading-4 {
+  font-family: $font-family-heading;
+  font-size: $font-size-lg;
+  font-weight: 600;
+  line-height: 1.4;
+  
+  @include md {
+    font-size: $font-size-xl;
+  }
+}
+
+@mixin body-text {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  color: $neutral-dark;
+}
+
+@mixin small-text {
+  font-family: $font-family-base;
+  font-size: $font-size-sm;
+  line-height: 1.5;
+  color: $neutral-medium;
+}
+
+// Containers
+@mixin container {
+  width: 100%;
+  max-width: 100%;
+  padding-left: $container-padding-x;
+  padding-right: $container-padding-x;
+  margin-left: auto;
+  margin-right: auto;
+  
+  @include sm {
+    max-width: $container-max-width-sm;
+  }
+  
+  @include md {
+    max-width: $container-max-width-md;
+  }
+  
+  @include lg {
+    max-width: $container-max-width-lg;
+  }
+  
+  @include xl {
+    max-width: $container-max-width-xl;
+  }
+  
+  @include xxl {
+    max-width: $container-max-width-2xl;
+  }
+}
+
+// Card styling
+@mixin card {
+  background-color: $white;
+  border-radius: $radius-md;
+  box-shadow: $shadow-md;
+  padding: $spacing-lg;
+  transition: box-shadow $transition-normal ease-in-out, transform $transition-normal ease-in-out;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-2px);
+  }
+}
+
+// Button styles
+@mixin button-base {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $radius-md;
+  font-weight: 500;
+  transition: all $transition-normal ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: $primary-blue;
+  color: $white;
+  
+  &:hover:not(:disabled) {
+    background-color: $primary-blue-dark;
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background-color: $secondary-green;
+  color: $white;
+  
+  &:hover:not(:disabled) {
+    background-color: $secondary-green-dark;
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+}
+
+@mixin button-outline {
+  @include button-base;
+  background-color: transparent;
+  border: 1px solid $primary-blue;
+  color: $primary-blue;
+  
+  &:hover:not(:disabled) {
+    background-color: $primary-blue-subtle;
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+}
+
+// Animation mixin
+@mixin fadeIn($duration: 0.3s, $delay: 0s) {
+  animation: fadeIn $duration ease-in-out $delay forwards;
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
     }
   }
+}
+
+@mixin slideInUp($duration: 0.3s, $delay: 0s) {
+  animation: slideInUp $duration ease-in-out $delay forwards;
   
-  @mixin mobile {
-    @media (max-width: #{$breakpoint-md - 1}) {
-      @content;
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
+}
+
+// Form control mixins
+@mixin form-control {
+  display: block;
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  font-size: $font-size-base;
+  font-family: $font-family-base;
+  color: $neutral-dark;
+  background-color: $white;
+  border: 1px solid $neutral-light;
+  border-radius: $radius-md;
+  transition: border-color $transition-normal ease, box-shadow $transition-normal ease;
   
-  @mixin tablet {
-    @media (min-width: #{$breakpoint-md}) and (max-width: #{$breakpoint-lg - 1}) {
-      @content;
-    }
-  }
-  
-  @mixin desktop {
-    @media (min-width: #{$breakpoint-lg}) {
-      @content;
-    }
-  }
-  
-  // Flex layoutai
-  @mixin flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  @mixin flex-between {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  @mixin flex-column {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  // Pozicionavimo
-  @mixin position-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  @mixin absolute-fill {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-  
-  // Tekstas
-  @mixin text-truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
-  @mixin line-clamp($lines) {
-    display: -webkit-box;
-    -webkit-line-clamp: $lines;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  // Šešėliai
-  @mixin box-shadow($level: 1) {
-    @if $level == 1 {
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    } @else if $level == 2 {
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    } @else if $level == 3 {
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-    } @else if $level == 4 {
-      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-    } @else if $level == 5 {
-      box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
-    }
-  }
-  
-  // Stiklo efektas (glassmorphism)
-  @mixin glass-effect($opacity: 0.1, $blur: 10px) {
-    background-color: rgba(255, 255, 255, $opacity);
-    backdrop-filter: blur($blur);
-    -webkit-backdrop-filter: blur($blur);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-  }
-  
-  // Gradientai
-  @mixin gradient-primary {
-    background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
-  }
-  
-  @mixin gradient-secondary {
-    background: linear-gradient(135deg, $secondary-color 0%, $secondary-dark 100%);
-  }
-  
-  @mixin gradient-accent {
-    background: linear-gradient(135deg, $accent-color 0%, $accent-dark 100%);
-  }
-  
-  // Perėjimo efektai
-  @mixin transition-all {
-    transition: all 0.3s ease;
-  }
-  
-  @mixin hover-lift {
-    transition: $transition;
-    
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: $shadow-hover;
-    }
-  }
-  
-  // Mygtukų stiliai
-  @mixin button-base {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: $border-radius;
-    font-weight: $font-weight-medium;
-    text-align: center;
-    cursor: pointer;
-    transition: $transition;
-    border: none;
+  &:focus {
+    border-color: $primary-blue;
     outline: none;
+    box-shadow: 0 0 0 3px rgba($primary-blue, 0.15);
   }
   
-  // Tinklelio sistema
-  @mixin grid($columns: 1, $gap: $spacer * 2) {
-    display: grid;
-    grid-template-columns: repeat($columns, 1fr);
-    gap: $gap;
+  &::placeholder {
+    color: $neutral-medium;
+  }
+}
+
+// Scrollbar styling
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
   }
   
-  // Kiti naudingai mixins
-  @mixin scrollbar($width: 8px, $track-color: $neutral-200, $thumb-color: $neutral-400) {
-    &::-webkit-scrollbar {
-      width: $width;
-    }
-    
-    &::-webkit-scrollbar-track {
-      background: $track-color;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      background: $thumb-color;
-      border-radius: $width / 2;
-    }
-    
-    &::-webkit-scrollbar-thumb:hover {
-      background: darken($thumb-color, 10%);
-    }
+  &::-webkit-scrollbar-track {
+    background: $neutral-light;
+    border-radius: $radius-full;
   }
   
-  @mixin card {
-    background-color: $bg-card;
-    border-radius: $border-radius;
-    box-shadow: $shadow-card;
-    padding: $spacer * 3;
-    transition: $transition;
-    
-    &:hover {
-      box-shadow: $shadow-hover;
-    }
+  &::-webkit-scrollbar-thumb {
+    background: $neutral-medium;
+    border-radius: $radius-full;
   }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: $primary-blue;
+  }
+}

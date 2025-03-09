@@ -1,159 +1,263 @@
-// Pagrindiniai aplikacijos stiliai
-@import './variables';
-@import './mixins';
-@import './animations';
-@import './typography';
-@import './utilities';
+// Import core styles
+@import 'variables';
+@import 'mixins';
+@import 'animations';
 
-// Baziniai stiliai
-* {
+// Import Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+// Import Font Awesome (assuming you're using it for icons)
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+// Base styles
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: $font-family;
-  color: $text-color;
-  background-color: $bg-color;
-  line-height: 1.6;
+  @include body-text;
+  background-color: $neutral-subtle;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
-a {
-  color: $primary-color;
-  text-decoration: none;
-  transition: $transition;
-  
-  &:hover {
-    color: $primary-dark;
-  }
-}
-
-button, .button {
-  background-color: $primary-color;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: $border-radius;
-  cursor: pointer;
-  transition: $transition;
-  font-size: 14px;
-  font-weight: 500;
-  
-  &:hover {
-    background-color: $primary-dark;
-    transform: translateY(-2px);
-    box-shadow: $shadow-hover;
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-  
-  &.secondary {
-    background-color: $secondary-color;
-    
-    &:hover {
-      background-color: $secondary-dark;
-    }
-  }
-  
-  &.tertiary {
-    background-color: transparent;
-    border: 1px solid $primary-color;
-    color: $primary-color;
-    
-    &:hover {
-      background-color: rgba($primary-color, 0.1);
-    }
-  }
-  
-  &.active {
-    background-color: $primary-dark;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    
-    &:hover {
-      transform: none;
-      box-shadow: none;
-    }
-  }
-}
-
-input, select, textarea {
-  padding: 10px 12px;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  font-size: 14px;
-  transition: $transition;
-  
-  &:focus {
-    outline: none;
-    border-color: $primary-color;
-    box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
-  }
-}
-
-// Aplikacijos pagrindinis konteineris
+// App container
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 70px; // Adjust based on header height
+}
+
+// Container
+.container {
+  @include container;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-heading;
+  font-weight: 600;
+  color: $neutral-dark;
+  margin-bottom: $spacing-md;
+}
+
+h1 {
+  @include heading-1;
+}
+
+h2 {
+  @include heading-2;
+}
+
+h3 {
+  @include heading-3;
+}
+
+h4 {
+  @include heading-4;
+}
+
+p {
+  margin-bottom: $spacing-md;
+  line-height: 1.6;
+}
+
+a {
+  color: $primary-blue;
+  text-decoration: none;
+  transition: color $transition-normal ease;
   
-  .main-content {
-    flex: 1;
-    padding: 20px;
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
+  &:hover {
+    color: $primary-blue-dark;
   }
 }
 
-// Pagalbinės klasės
-.full-width {
-  width: 100%;
+// Section styles
+.section {
+  padding: $spacing-xl 0;
+  
+  @include md {
+    padding: $spacing-2xl 0;
+  }
 }
 
+.section-title {
+  margin-bottom: $spacing-xl;
+  text-align: center;
+  
+  h2 {
+    margin-bottom: $spacing-sm;
+  }
+  
+  p {
+    color: $neutral-medium;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// Page header
+.page-header {
+  background: linear-gradient(135deg, $primary-blue, $primary-blue-dark);
+  color: $white;
+  padding: $spacing-xl 0;
+  margin-bottom: $spacing-xl;
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url('../assets/images/pattern.svg') repeat;
+    opacity: 0.1;
+    z-index: 0;
+  }
+  
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+  
+  h1 {
+    color: $white;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .subtitle {
+    color: rgba($white, 0.85);
+    font-size: $font-size-lg;
+    max-width: 700px;
+  }
+}
+
+// Buttons
+.btn, button {
+  @include button-base;
+}
+
+.btn-primary {
+  @include button-primary;
+}
+
+.btn-secondary {
+  @include button-secondary;
+}
+
+.btn-outline {
+  @include button-outline;
+}
+
+.btn-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  transition: all $transition-normal ease;
+  
+  i {
+    font-size: $font-size-lg;
+  }
+}
+
+// Cards
+.card {
+  @include card;
+}
+
+// Forms
+input, select, textarea {
+  @include form-control;
+  margin-bottom: $spacing-md;
+}
+
+// Loading and error states
+.loading-container, .error-container {
+  @include flex-center;
+  flex-direction: column;
+  min-height: 300px;
+  padding: $spacing-xl;
+  text-align: center;
+  
+  .spinner {
+    margin-bottom: $spacing-md;
+  }
+}
+
+.error-container {
+  h2 {
+    color: $error;
+  }
+  
+  button {
+    @include button-primary;
+    margin-top: $spacing-md;
+  }
+}
+
+// Utilities
 .text-center {
   text-align: center;
 }
 
-.content-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+.text-primary {
+  color: $primary-blue;
 }
 
-// Skiltys
-.page-header {
-  margin-bottom: 30px;
-  
-  h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
-    color: $primary-color;
-  }
-  
-  .subtitle {
-    font-size: 18px;
-    color: $text-light;
-  }
+.text-secondary {
+  color: $secondary-green;
 }
 
-// Animacijos
-.fade-in {
-  animation: fadeIn 0.5s ease-in-out;
+.bg-primary {
+  background-color: $primary-blue;
+  color: $white;
 }
 
-.slide-up {
-  animation: slideUp 0.5s ease-in-out;
+.bg-secondary {
+  background-color: $secondary-green;
+  color: $white;
 }
 
-.pulse {
-  animation: pulse 2s infinite;
-}
+.mt-1 { margin-top: $spacing-xs; }
+.mt-2 { margin-top: $spacing-sm; }
+.mt-3 { margin-top: $spacing-md; }
+.mt-4 { margin-top: $spacing-lg; }
+.mt-5 { margin-top: $spacing-xl; }
+
+.mb-1 { margin-bottom: $spacing-xs; }
+.mb-2 { margin-bottom: $spacing-sm; }
+.mb-3 { margin-bottom: $spacing-md; }
+.mb-4 { margin-bottom: $spacing-lg; }
+.mb-5 { margin-bottom: $spacing-xl; }
+
+// Import component styles
+@import 'components/header';
+@import 'components/footer';
+@import 'components/filters';
+@import 'components/visualizations';
+
+// Import page styles
+@import 'pages/home';
+@import 'pages/analytics';
+@import 'pages/map';
+@import 'pages/comparison';
