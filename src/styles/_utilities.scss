@@ -288,11 +288,11 @@
   }
   
   .shadow {
-    @include box-shadow(2) !important;
+    box-shadow: $shadow-md !important;
   }
   
   .shadow-lg {
-    @include box-shadow(4) !important;
+    box-shadow: $shadow-lg !important;
   }
   
   .rounded {
