@@ -1,0 +1,221 @@
+@import '../variables';
+@import '../mixins';
+
+.comparison-page {
+  .page-header {
+    @include fadeIn(0.5s);
+  }
+  
+  .comparison-container {
+    @include container;
+    padding-bottom: $spacing-2xl;
+  }
+  
+  .comparison-options {
+    margin-bottom: $spacing-xl;
+    @include fadeIn(0.5s, 0.3s);
+    
+    .comparison-filters {
+      background-color: $white;
+      border-radius: $radius-lg;
+      padding: $spacing-lg;
+      box-shadow: $shadow-md;
+      margin-bottom: $spacing-xl;
+      
+      .filter-group {
+        margin-bottom: $spacing-lg;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        label {
+          display: block;
+          margin-bottom: $spacing-sm;
+          font-weight: 500;
+        }
+        
+        .city-checkboxes {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+          gap: $spacing-sm;
+          
+          .checkbox-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: $spacing-xs;
+            cursor: pointer;
+            
+            input[type="checkbox"] {
+              margin-right: $spacing-sm;
+              width: 16px;
+              height: 16px;
+              accent-color: $primary-blue;
+            }
+          }
+        }
+        
+        .filter-select {
+          width: 100%;
+          padding: $spacing-sm $spacing-md;
+          border: 1px solid $neutral-light;
+          border-radius: $radius-md;
+          color: $neutral-dark;
+          font-size: $font-size-base;
+          transition: all $transition-normal ease;
+          
+          // Custom select arrow
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 10px center;
+          background-size: 16px;
+          padding-right: 32px;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          
+          &:focus {
+            border-color: $primary-blue;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba($primary-blue, 0.15);
+          }
+        }
+        
+        .chart-type-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          gap: $spacing-sm;
+          
+          button {
+            background-color: $neutral-light;
+            border: none;
+            padding: $spacing-sm $spacing-md;
+            border-radius: $radius-md;
+            font-size: $font-size-sm;
+            font-weight: 500;
+            color: $neutral-dark;
+            cursor: pointer;
+            transition: all $transition-normal ease;
+            
+            &:hover:not(.active) {
+              background-color: darken($neutral-light, 5%);
+            }
+            
+            &.active {
+              background-color: $primary-blue;
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+    
+    .comparison-chart-container {
+      background-color: $white;
+      border-radius: $radius-lg;
+      padding: $spacing-lg;
+      box-shadow: $shadow-md;
+      
+      h2 {
+        margin-bottom: $spacing-lg;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: $spacing-xs;
+        
+        .property-type-filter {
+          font-size: $font-size-base;
+          font-weight: normal;
+          color: $neutral-medium;
+        }
+      }
+      
+      .chart-container {
+        height: 500px;
+        margin-bottom: $spacing-lg;
+      }
+      
+      .chart-explanation {
+        color: $neutral-medium;
+        font-size: $font-size-sm;
+        border-top: 1px solid $neutral-light;
+        padding-top: $spacing-md;
+      }
+    }
+  }
+  
+  .comparison-insights {
+    @include fadeIn(0.5s, 0.6s);
+    
+    h2 {
+      margin-bottom: $spacing-lg;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(to right, $primary-blue, $secondary-green);
+        border-radius: $radius-full;
+      }
+    }
+    
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: $spacing-lg;
+      
+      @include md {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      @include xl {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    
+    .insight-card {
+      background-color: $white;
+      border-radius: $radius-lg;
+      padding: $spacing-lg;
+      box-shadow: $shadow-md;
+      transition: all $transition-normal ease;
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: $shadow-lg;
+      }
+      
+      h3 {
+        color: $primary-blue;
+        margin-bottom: $spacing-md;
+        font-size: $font-size-lg;
+      }
+      
+      p {
+        color: $neutral-medium;
+        line-height: 1.6;
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  .loading-container, .error-container {
+    margin: $spacing-xl auto;
+    text-align: center;
+    
+    .loading-animation {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      
+      .spinner {
+        margin-bottom: $spacing-md;
+      }
+    }
+  }
+}

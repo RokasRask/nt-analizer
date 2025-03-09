@@ -1,0 +1,245 @@
+@import '../variables';
+@import '../mixins';
+
+.map-page {
+  .page-header {
+    @include fadeIn(0.5s);
+  }
+  
+  .map-container {
+    @include container;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+    padding-bottom: $spacing-2xl;
+    
+    @include lg {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+  
+  .sidebar {
+    width: 100%;
+    
+    @include lg {
+      position: sticky;
+      top: 80px;
+      width: 320px;
+      flex-shrink: 0;
+    }
+    
+    .filters-container {
+      margin-bottom: $spacing-xl;
+    }
+  }
+  
+  .map-controls {
+    background-color: $white;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-lg;
+    box-shadow: $shadow-md;
+    
+    h3 {
+      margin-bottom: $spacing-md;
+    }
+    
+    .view-mode-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-sm;
+      margin-bottom: $spacing-lg;
+      
+      button {
+        background-color: $neutral-light;
+        border: none;
+        padding: $spacing-sm $spacing-md;
+        border-radius: $radius-md;
+        font-size: $font-size-sm;
+        font-weight: 500;
+        color: $neutral-dark;
+        cursor: pointer;
+        transition: all $transition-normal ease;
+        
+        &:hover:not(.active) {
+          background-color: darken($neutral-light, 5%);
+        }
+        
+        &.active {
+          background-color: $primary-blue;
+          color: $white;
+        }
+      }
+    }
+    
+    .map-legend {
+      border-top: 1px solid $neutral-light;
+      padding-top: $spacing-md;
+      
+      h4 {
+        font-size: $font-size-base;
+        margin-bottom: $spacing-sm;
+      }
+      
+      .legend-items {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: $spacing-xs;
+        
+        @include md {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: $spacing-xs;
+        
+        .color-box {
+          width: 16px;
+          height: 16px;
+          border-radius: $radius-sm;
+          
+          &.low-price {
+            background-color: rgb(0, 40, 255);
+          }
+          
+          &.medium-price {
+            background-color: rgb(128, 40, 128);
+          }
+          
+          &.high-price {
+            background-color: rgb(255, 40, 0);
+          }
+        }
+        
+        span {
+          font-size: $font-size-sm;
+          color: $neutral-medium;
+        }
+      }
+    }
+  }
+  
+  .selected-property-details {
+    background-color: $white;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    box-shadow: $shadow-md;
+    
+    h3 {
+      margin-bottom: $spacing-md;
+      font-size: $font-size-lg;
+    }
+    
+    .property-card {
+      h4 {
+        color: $primary-blue;
+        margin-bottom: $spacing-sm;
+      }
+      
+      .property-price {
+        font-size: $font-size-xl;
+        font-weight: 700;
+        margin-bottom: $spacing-xs;
+      }
+      
+      .property-price-sqm {
+        color: $neutral-medium;
+        font-size: $font-size-sm;
+        margin-bottom: $spacing-md;
+      }
+      
+      .property-details {
+        margin-bottom: $spacing-md;
+        
+        p {
+          margin-bottom: $spacing-xs;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+      
+      .view-listing-btn {
+        @include button-primary;
+        display: inline-block;
+        font-size: $font-size-sm;
+        padding: $spacing-xs $spacing-md;
+      }
+    }
+  }
+  
+  .map-content {
+    flex: 1;
+    @include fadeIn(0.5s, 0.3s);
+  }
+  
+  .map-header {
+    background-color: $white;
+    border-radius: $radius-lg;
+    padding: $spacing-md;
+    margin-bottom: $spacing-md;
+    box-shadow: $shadow-md;
+    
+    .map-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-md $spacing-xl;
+      
+      .map-stat {
+        .stat-label {
+          font-size: $font-size-sm;
+          color: $neutral-medium;
+          margin-right: $spacing-xs;
+        }
+        
+        .stat-value {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  
+  .map-visualization {
+    border-radius: $radius-lg;
+    overflow: hidden;
+    box-shadow: $shadow-lg;
+    margin-bottom: $spacing-md;
+  }
+  
+  .map-instructions {
+    background-color: $primary-blue-subtle;
+    border-radius: $radius-md;
+    padding: $spacing-md;
+    font-size: $font-size-sm;
+    color: $primary-blue-dark;
+    
+    p {
+      margin-bottom: 0;
+      
+      strong {
+        font-weight: 600;
+      }
+    }
+  }
+  
+  .loading-container, .error-container {
+    margin: $spacing-xl auto;
+    text-align: center;
+    
+    .loading-animation {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      
+      .spinner {
+        margin-bottom: $spacing-md;
+      }
+    }
+  }
+}

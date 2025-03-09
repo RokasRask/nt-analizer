@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { usePropertyData } from '../context/DataContext';
 import PriceChart from '../components/visualizations/PriceChart';
 import PropertyMap from '../components/visualizations/PropertyMap';
-import './HomePage.scss';
+import '../styles/pages/_home.scss';
 
 const HomePage = () => {
   const { stats, loading, error } = usePropertyData();
