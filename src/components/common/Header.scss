@@ -1,0 +1,226 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.header {
+  background-color: rgba($bg-light, 0.97);
+  box-shadow: $shadow;
+  position: sticky;
+  top: 0;
+  z-index: $z-index-sticky;
+  transition: $transition;
+  
+  // Animacija, kai vartotojas slenka žemyn
+  &.scrolled {
+    padding: 10px 0;
+    box-shadow: $shadow-hover;
+  }
+  
+  // Header su fonu
+  &.with-background {
+    background-image: url('/assets/images/header-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    
+    &:before {
+      content: '';
+      @include absolute-fill;
+      background-color: rgba($primary-dark, 0.85);
+      z-index: -1;
+    }
+    
+    .header-container {
+      color: white;
+      
+      .logo a, .nav-menu a {
+        color: white;
+      }
+    }
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 15px 20px;
+    
+    @include mobile {
+      flex-direction: column;
+      align-items: center;
+      padding: 15px 10px;
+    }
+  }
+  
+  .logo {
+    font-size: 26px;
+    font-weight: $font-weight-bold;
+    color: $primary-color;
+    display: flex;
+    align-items: center;
+    transition: $transition;
+    
+    img {
+      height: 40px;
+      margin-right: $spacer;
+    }
+    
+    a {
+      color: inherit;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      
+      &:hover {
+        color: $primary-dark;
+      }
+    }
+    
+    .logo-text {
+      font-size: 24px;
+      font-weight: $font-weight-bold;
+      
+      span {
+        color: $secondary-color;
+      }
+    }
+    
+    @include mobile {
+      margin-bottom: $spacer;
+    }
+  }
+  
+  .nav-menu {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    
+    a {
+      color: $text-color;
+      text-decoration: none;
+      padding: 8px 5px;
+      position: relative;
+      font-weight: $font-weight-medium;
+      transition: $transition;
+      
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: $primary-color;
+        transition: $transition;
+      }
+      
+      &:hover, &.active {
+        color: $primary-color;
+        
+        &:after {
+          width: 100%;
+        }
+      }
+      
+      &.active {
+        font-weight: $font-weight-bold;
+      }
+      
+      @include mobile {
+        padding: 5px;
+        font-size: $font-size-sm;
+      }
+    }
+    
+    @include mobile {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+  }
+  
+  .mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: $text-color;
+    font-size: 24px;
+    cursor: pointer;
+    
+    @include mobile {
+      display: block;
+      position: absolute;
+      right: $spacer * 2;
+      top: $spacer * 2;
+    }
+  }
+  
+  // Mobile menu
+  .mobile-nav-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: $bg-light;
+    padding: $spacer * 2;
+    border-top: 1px solid $border-color;
+    
+    a {
+      padding: $spacer 0;
+      border-bottom: 1px solid $border-color;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    
+    &.open {
+      display: flex;
+      animation: slideDown 0.3s ease;
+    }
+  }
+  
+  // Header buttons
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: $spacer * 2;
+    
+    .header-button {
+      padding: 8px 16px;
+      border-radius: $border-radius;
+      font-weight: $font-weight-medium;
+      transition: $transition;
+      
+      &.login {
+        border: 1px solid $primary-color;
+        color: $primary-color;
+        background-color: transparent;
+        
+        &:hover {
+          background-color: rgba($primary-color, 0.1);
+        }
+      }
+      
+      &.signup {
+        background-color: $primary-color;
+        color: white;
+        
+        &:hover {
+          background-color: $primary-dark;
+        }
+      }
+    }
+  }
+}
+
+/* 
+PLACEHOLDER PAVEIKSLĖLIS: header-bg.jpg
+
+Aprašymas: Antraštės fono paveikslėlis, kuris naudojamas header.with-background klasėje.
+Reikalavimai:
+- Šviesi, gražaus miesto panorama su daugiabučių namais
+- Nuotraukos rezoliucija: 1920x400px
+- Turėtų būti šiek tiek išsiliejusi/blurred, kad ant jos būtų galima lengvai skaityti tekstą
+- Mėlynų ir žalsvų atspalvių, kas derėtų su svetainės spalvine palete
+*/

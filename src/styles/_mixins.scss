@@ -1,0 +1,197 @@
+// Responsiškumo mixins
+@mixin respond-to($breakpoint) {
+    @if $breakpoint == xs {
+      @media (max-width: #{$breakpoint-sm - 1}) {
+        @content;
+      }
+    } @else if $breakpoint == sm {
+      @media (min-width: #{$breakpoint-sm}) and (max-width: #{$breakpoint-md - 1}) {
+        @content;
+      }
+    } @else if $breakpoint == md {
+      @media (min-width: #{$breakpoint-md}) and (max-width: #{$breakpoint-lg - 1}) {
+        @content;
+      }
+    } @else if $breakpoint == lg {
+      @media (min-width: #{$breakpoint-lg}) and (max-width: #{$breakpoint-xl - 1}) {
+        @content;
+      }
+    } @else if $breakpoint == xl {
+      @media (min-width: #{$breakpoint-xl}) and (max-width: #{$breakpoint-xxl - 1}) {
+        @content;
+      }
+    } @else if $breakpoint == xxl {
+      @media (min-width: #{$breakpoint-xxl}) {
+        @content;
+      }
+    }
+  }
+  
+  @mixin mobile {
+    @media (max-width: #{$breakpoint-md - 1}) {
+      @content;
+    }
+  }
+  
+  @mixin tablet {
+    @media (min-width: #{$breakpoint-md}) and (max-width: #{$breakpoint-lg - 1}) {
+      @content;
+    }
+  }
+  
+  @mixin desktop {
+    @media (min-width: #{$breakpoint-lg}) {
+      @content;
+    }
+  }
+  
+  // Flex layoutai
+  @mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @mixin flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  @mixin flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  // Pozicionavimo
+  @mixin position-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  @mixin absolute-fill {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  // Tekstas
+  @mixin text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  @mixin line-clamp($lines) {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  // Šešėliai
+  @mixin box-shadow($level: 1) {
+    @if $level == 1 {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    } @else if $level == 2 {
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    } @else if $level == 3 {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    } @else if $level == 4 {
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    } @else if $level == 5 {
+      box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+  }
+  
+  // Stiklo efektas (glassmorphism)
+  @mixin glass-effect($opacity: 0.1, $blur: 10px) {
+    background-color: rgba(255, 255, 255, $opacity);
+    backdrop-filter: blur($blur);
+    -webkit-backdrop-filter: blur($blur);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  
+  // Gradientai
+  @mixin gradient-primary {
+    background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+  }
+  
+  @mixin gradient-secondary {
+    background: linear-gradient(135deg, $secondary-color 0%, $secondary-dark 100%);
+  }
+  
+  @mixin gradient-accent {
+    background: linear-gradient(135deg, $accent-color 0%, $accent-dark 100%);
+  }
+  
+  // Perėjimo efektai
+  @mixin transition-all {
+    transition: all 0.3s ease;
+  }
+  
+  @mixin hover-lift {
+    transition: $transition;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: $shadow-hover;
+    }
+  }
+  
+  // Mygtukų stiliai
+  @mixin button-base {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: $border-radius;
+    font-weight: $font-weight-medium;
+    text-align: center;
+    cursor: pointer;
+    transition: $transition;
+    border: none;
+    outline: none;
+  }
+  
+  // Tinklelio sistema
+  @mixin grid($columns: 1, $gap: $spacer * 2) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    gap: $gap;
+  }
+  
+  // Kiti naudingai mixins
+  @mixin scrollbar($width: 8px, $track-color: $neutral-200, $thumb-color: $neutral-400) {
+    &::-webkit-scrollbar {
+      width: $width;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: $track-color;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: $thumb-color;
+      border-radius: $width / 2;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+      background: darken($thumb-color, 10%);
+    }
+  }
+  
+  @mixin card {
+    background-color: $bg-card;
+    border-radius: $border-radius;
+    box-shadow: $shadow-card;
+    padding: $spacer * 3;
+    transition: $transition;
+    
+    &:hover {
+      box-shadow: $shadow-hover;
+    }
+  }

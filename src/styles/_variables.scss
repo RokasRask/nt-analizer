@@ -1,0 +1,95 @@
+// Spalvų paletė
+$primary-color: #3498db;
+$primary-light: #5dade2;
+$primary-dark: #2980b9;
+$primary-transparent: rgba(52, 152, 219, 0.1);
+
+$secondary-color: #2ecc71;
+$secondary-light: #58d68d;
+$secondary-dark: #27ae60;
+$secondary-transparent: rgba(46, 204, 113, 0.1);
+
+$accent-color: #e74c3c;
+$accent-light: #ec7063;
+$accent-dark: #c0392b;
+
+$neutral-100: #f8f9fa;
+$neutral-200: #e9ecef;
+$neutral-300: #dee2e6;
+$neutral-400: #ced4da;
+$neutral-500: #adb5bd;
+$neutral-600: #6c757d;
+$neutral-700: #495057;
+$neutral-800: #343a40;
+$neutral-900: #212529;
+
+// Teksto spalvos
+$text-color: $neutral-800;
+$text-light: $neutral-600;
+$text-dark: $neutral-900;
+
+// Fono spalvos
+$bg-color: $neutral-100;
+$bg-light: #ffffff;
+$bg-dark: $neutral-200;
+$bg-card: #ffffff;
+
+// Išdėstymo kintamieji
+$spacer: 8px;
+$header-height: 70px;
+$footer-height: 80px;
+$sidebar-width: 280px;
+$container-max-width: 1400px;
+
+// Dizaino elementai
+$border-color: $neutral-300;
+$border-radius: 6px;
+$border-radius-lg: 10px;
+$border-radius-sm: 4px;
+$shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+$shadow-hover: 0 5px 15px rgba(0, 0, 0, 0.1);
+$shadow-card: 0 2px 15px rgba(0, 0, 0, 0.08);
+$shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+
+// Animacijos
+$transition: all 0.3s ease;
+$transition-slow: all 0.5s ease;
+$transition-fast: all 0.15s ease;
+
+// Šriftai
+$font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+$font-size-base: 16px;
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px
+$font-size-md: 1rem; // 16px
+$font-size-lg: 1.125rem; // 18px
+$font-size-xl: 1.25rem; // 20px
+$font-size-xxl: 1.5rem; // 24px
+$font-size-xxxl: 2rem; // 32px
+
+// Spalvos žemėlapiui
+$map-low-price: rgb(0, 60, 255);
+$map-medium-price: rgb(150, 60, 150);
+$map-high-price: rgb(255, 60, 0);
+
+// Breakpoint'ai
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
