@@ -1,0 +1,154 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.filter-panel {
+  background-color: $white;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+  margin-bottom: $spacing-xl;
+  overflow: hidden;
+  transition: all $transition-normal ease;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+  }
+  
+  .filter-panel-title {
+    @include flex-between;
+    padding: $spacing-md $spacing-lg;
+    border-bottom: 1px solid $neutral-light;
+    font-weight: 600;
+    color: $neutral-dark;
+    
+    .filter-actions {
+      @include flex(row, flex-end, center);
+      gap: $spacing-sm;
+    }
+    
+    .reset-button {
+      background: none;
+      border: none;
+      color: $primary-blue;
+      font-size: $font-size-sm;
+      cursor: pointer;
+      transition: color $transition-normal ease;
+      
+      &:hover {
+        color: $primary-blue-dark;
+      }
+      
+      i {
+        margin-right: $spacing-xs;
+      }
+    }
+    
+    .toggle-icon {
+      width: 24px;
+      height: 24px;
+      @include flex-center;
+      border-radius: $radius-full;
+      cursor: pointer;
+      transition: all $transition-normal ease;
+      
+      &:hover {
+        background-color: $neutral-light;
+      }
+    }
+  }
+  
+  .filter-panel-content {
+    padding: $spacing-lg;
+    max-height: 1000px;
+    opacity: 1;
+    transition: max-height $transition-slow ease, 
+                opacity $transition-normal ease, 
+                padding $transition-normal ease;
+    
+    &.collapsed {
+      max-height: 0;
+      opacity: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      pointer-events: none;
+    }
+  }
+  
+  .filter-group {
+    margin-bottom: $spacing-lg;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: $spacing-sm;
+      font-weight: 500;
+      color: $neutral-dark;
+    }
+    
+    .filter-select {
+      width: 100%;
+      padding: $spacing-sm $spacing-md;
+      border: 1px solid $neutral-light;
+      border-radius: $radius-md;
+      background-color: $white;
+      color: $neutral-dark;
+      font-size: $font-size-base;
+      transition: all $transition-normal ease;
+      
+      // Custom select arrow
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+      padding-right: 32px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      
+      &:focus {
+        border-color: $primary-blue;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba($primary-blue, 0.15);
+      }
+    }
+    
+    &.additional-options {
+      border-top: 1px solid $neutral-light;
+      padding-top: $spacing-md;
+    }
+    
+    .checkbox-list {
+      @include grid(2, $spacing-sm);
+      
+      @include md {
+        @include grid(2, $spacing-md);
+      }
+    }
+    
+    .checkbox-label {
+      @include flex(row, flex-start, center);
+      font-size: $font-size-sm;
+      margin-bottom: $spacing-sm;
+      cursor: pointer;
+      
+      input[type="checkbox"] {
+        margin-right: $spacing-sm;
+        width: 16px;
+        height: 16px;
+        accent-color: $primary-blue;
+      }
+    }
+  }
+  
+  .apply-filters-button {
+    @include button-primary;
+    width: 100%;
+    margin-top: $spacing-md;
+    
+    i {
+      margin-right: $spacing-sm;
+    }
+  }
+}

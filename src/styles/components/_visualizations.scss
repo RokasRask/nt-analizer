@@ -1,0 +1,344 @@
+@import '../variables';
+@import '../mixins';
+
+// Common Chart Container
+.chart-container {
+  background-color: $white;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-xl;
+  transition: all $transition-normal ease;
+  overflow: hidden;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+  }
+  
+  .responsive-container {
+    width: 100%;
+    height: 400px;
+  }
+}
+
+// Chart Controls
+.chart-controls {
+  margin-bottom: $spacing-lg;
+  
+  .view-mode-selector, .metric-selector, .chart-type-buttons {
+    @include flex(row, flex-start, center);
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-md;
+    
+    button {
+      background-color: $neutral-light;
+      border: none;
+      padding: $spacing-sm $spacing-md;
+      border-radius: $radius-md;
+      font-size: $font-size-sm;
+      font-weight: 500;
+      color: $neutral-dark;
+      cursor: pointer;
+      transition: all $transition-normal ease;
+      
+      &:hover {
+        background-color: darken($neutral-light, 5%);
+      }
+      
+      &.active {
+        background-color: $primary-blue;
+        color: $white;
+      }
+    }
+  }
+  
+  .city-selector {
+    margin-top: $spacing-md;
+    
+    .city-checkboxes {
+      @include flex(row, flex-start, center);
+      flex-wrap: wrap;
+      gap: $spacing-sm;
+      margin-top: $spacing-xs;
+      
+      span {
+        margin-left: $spacing-xs;
+      }
+    }
+    
+    .city-selector-dropdown {
+      select {
+        @include form-control;
+        margin-top: $spacing-xs;
+        width: auto;
+      }
+    }
+  }
+}
+
+// Chart Explanation
+.chart-explanation {
+  margin-top: $spacing-md;
+  padding-top: $spacing-md;
+  border-top: 1px solid $neutral-light;
+  font-size: $font-size-sm;
+  color: $neutral-medium;
+  
+  p {
+    margin-bottom: $spacing-sm;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Property Map
+.property-map-container {
+  position: relative;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+  
+  .leaflet-container {
+    width: 100%;
+    height: 600px;
+    z-index: 0;
+  }
+  
+  .map-legend {
+    position: absolute;
+    bottom: $spacing-md;
+    right: $spacing-md;
+    background-color: rgba($white, 0.9);
+    border-radius: $radius-md;
+    padding: $spacing-md;
+    box-shadow: $shadow-md;
+    z-index: 1000;
+    
+    h4 {
+      margin-bottom: $spacing-sm;
+      font-size: $font-size-base;
+    }
+    
+    .color-scale {
+      @include flex(column, flex-start, stretch);
+      gap: $spacing-xs;
+    }
+    
+    .color-item {
+      @include flex(row, flex-start, center);
+      
+      .color-box {
+        width: 20px;
+        height: 20px;
+        border-radius: $radius-sm;
+        margin-right: $spacing-sm;
+      }
+      
+      span {
+        font-size: $font-size-sm;
+      }
+    }
+  }
+  
+  .property-popup {
+    max-width: 250px;
+    
+    h3 {
+      font-size: $font-size-base;
+      margin-bottom: $spacing-xs;
+      color: $primary-blue;
+    }
+    
+    p {
+      margin-bottom: $spacing-xs;
+      font-size: $font-size-sm;
+    }
+    
+    a {
+      display: inline-block;
+      margin-top: $spacing-sm;
+      color: $primary-blue;
+      font-size: $font-size-sm;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Price Chart
+.price-chart-container {
+  .view-selector {
+    @include flex(row, flex-start, center);
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-md;
+    
+    button {
+      background-color: $neutral-light;
+      border: none;
+      padding: $spacing-sm $spacing-md;
+      border-radius: $radius-md;
+      font-size: $font-size-sm;
+      font-weight: 500;
+      color: $neutral-dark;
+      cursor: pointer;
+      transition: all $transition-normal ease;
+      
+      &:hover {
+        background-color: darken($neutral-light, 5%);
+      }
+      
+      &.active {
+        background-color: $primary-blue;
+        color: $white;
+      }
+    }
+  }
+  
+  .custom-tooltip {
+    background-color: $white;
+    border-radius: $radius-md;
+    padding: $spacing-md;
+    box-shadow: $shadow-md;
+    border: 1px solid $neutral-light;
+    
+    p {
+      margin-bottom: $spacing-xs;
+      font-size: $font-size-sm;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    .label {
+      font-weight: 600;
+      color: $primary-blue;
+    }
+    
+    .intro {
+      color: $neutral-medium;
+    }
+    
+    .desc {
+      color: $neutral-dark;
+    }
+  }
+}
+
+// Trend Chart
+.trend-chart-container {
+  .prediction-toggle {
+    margin-top: $spacing-md;
+    
+    label {
+      @include flex(row, flex-start, center);
+      cursor: pointer;
+      
+      input[type="checkbox"] {
+        margin-right: $spacing-sm;
+        accent-color: $primary-blue;
+      }
+    }
+  }
+  
+  .data-source {
+    margin-top: $spacing-sm;
+    font-size: $font-size-xs;
+    color: $neutral-medium;
+    font-style: italic;
+  }
+}
+
+// Comparison Chart
+.comparison-chart-container {
+  .city-comparison {
+    margin-top: $spacing-lg;
+    
+    .city-bar-container {
+      margin-bottom: $spacing-md;
+      
+      .city-label {
+        font-weight: 500;
+        margin-bottom: $spacing-xs;
+      }
+      
+      .city-bar {
+        height: 24px;
+        background-color: $neutral-light;
+        border-radius: $radius-full;
+        position: relative;
+        overflow: hidden;
+        
+        .city-bar-fill {
+          height: 100%;
+          background: linear-gradient(to right, $primary-blue, $primary-blue-dark);
+          border-radius: $radius-full;
+          transition: width $transition-slow ease-in-out;
+        }
+        
+        .city-value {
+          position: absolute;
+          right: $spacing-md;
+          top: 0;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          font-size: $font-size-sm;
+          font-weight: 500;
+          color: $white;
+        }
+      }
+    }
+  }
+}
+
+// General Chart Styling (Recharts)
+.recharts-text {
+  fill: $neutral-dark;
+  font-family: $font-family-base;
+  font-size: 12px;
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: $neutral-light;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.recharts-tooltip-wrapper {
+  z-index: 1000;
+}
+
+.recharts-default-tooltip {
+  background-color: $white !important;
+  border: 1px solid $neutral-light !important;
+  border-radius: $radius-md !important;
+  box-shadow: $shadow-md !important;
+  
+  .recharts-tooltip-label {
+    color: $neutral-dark !important;
+    font-weight: 600 !important;
+  }
+  
+  .recharts-tooltip-item {
+    color: $neutral-dark !important;
+  }
+}
+
+.recharts-reference-line line {
+  stroke: $warning;
+  stroke-width: 2;
+  stroke-dasharray: 3 3;
+}
+
+.recharts-reference-line-label {
+  fill: $warning;
+  font-weight: 600;
+}
